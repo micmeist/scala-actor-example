@@ -13,7 +13,7 @@ object PingPongApp extends App {
   val pong = system.actorOf(Props[Pong], "PongActor")
 
   println("Start Games")
-  PingAlfred ! StartMessage(10, "A", pong)
-  PingBernd ! StartMessage(10, "B", pong)
+  PingAlfred ! StartMessage(10, pong)
+  PingBernd ! StartMessage(20, pong)
   println("Games started")
 }

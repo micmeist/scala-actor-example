@@ -9,24 +9,24 @@ class Ping(private val playerName: String) extends Actor {
 
   private var count: Int = 0
 
-  private def countAndPing(gameID: String) = {
+  private def countAndPing = {
     count -= 1
     println(playerName + " makes Ping")
   }
 
   override def receive: Receive = {
-    case message: StartMessage =>
-      println("Start Game " + message.gameID)
-      count = message.count
-      countAndPing(message.gameID)
-      message.other ! PingMessage(message.gameID)
+    case startMessage: StartMessage =>
+      println(playerName + " starts game")
+      count = startMessage.count
+      countAndPing
+      startMessage.other ! PingMessage(playerName)
 
-    case message: PongMessage =>
+    case PongMessage =>
       if (count > 0) {
-        countAndPing(message.gameID)
-        sender ! PingMessage(message.gameID)
+        countAndPing
+        sender ! PingMessage(playerName)
       } else {
-        println("Game " + message.gameID + " end")
+        println(playerName + " finished game")
       }
   }
 }
@@ -34,8 +34,8 @@ class Ping(private val playerName: String) extends Actor {
 class Pong extends Actor {
 
   override def receive: Receive = {
-    case message: PingMessage =>
-      println(message.gameID + " Robo makes Pong")
-      sender ! PongMessage(message.gameID)
+    case pingMessage: PingMessage =>
+      println("Robo makes Pong to " + pingMessage.playerName)
+      sender ! PongMessage
   }
 }
