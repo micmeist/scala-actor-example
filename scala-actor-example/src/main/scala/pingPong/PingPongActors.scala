@@ -9,21 +9,21 @@ class Ping(private val playerName: String) extends Actor {
 
   private var count: Int = 0
 
-  private def countAndPing = {
+  private def pingAndCount = {
+    println(playerName + " makes Ping " + count)
     count -= 1
-    println(playerName + " makes Ping")
   }
 
   override def receive: Receive = {
     case startMessage: StartMessage =>
       println(playerName + " starts game")
       count = startMessage.count
-      countAndPing
+      pingAndCount
       startMessage.other ! PingMessage(playerName)
 
     case PongMessage =>
       if (count > 0) {
-        countAndPing
+        pingAndCount
         sender ! PingMessage(playerName)
       } else {
         println(playerName + " finished game")
