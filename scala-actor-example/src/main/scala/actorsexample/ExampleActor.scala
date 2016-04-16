@@ -7,8 +7,9 @@ import akka.actor.Actor
   */
 class ExampleActor extends Actor {
 
-  override def receive: Receive = {
-    case message : String => print(message)
+  override def receive = {
+    case message: String => println(s"You said: $message")
+    case _ => println("What?")
   }
 
 }

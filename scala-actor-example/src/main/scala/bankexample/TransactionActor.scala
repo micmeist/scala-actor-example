@@ -7,7 +7,7 @@ import akka.actor.Actor
   */
 class TransactionActor extends Actor {
 
-  override def receive: Receive = {
+  override def receive = {
     case transaction: Transaction =>
       if (transaction.amount < 0) {
         transaction.account ! MinusTransaction(transaction.amount * -1)

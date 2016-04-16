@@ -14,7 +14,7 @@ class Ping(private val playerName: String) extends Actor {
     count -= 1
   }
 
-  override def receive: Receive = {
+  override def receive = {
     case startMessage: StartMessage =>
       println(playerName + " starts game")
       count = startMessage.count
@@ -33,7 +33,7 @@ class Ping(private val playerName: String) extends Actor {
 
 class Pong extends Actor {
 
-  override def receive: Receive = {
+  override def receive = {
     case pingMessage: PingMessage =>
       println("Robo makes Pong to " + pingMessage.playerName)
       sender ! PongMessage

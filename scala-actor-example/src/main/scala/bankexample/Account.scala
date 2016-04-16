@@ -9,7 +9,7 @@ class Account extends Actor{
 
   var amount : Int = 0
 
-  override def receive: Receive = {
+  override def receive = {
     case transaction: MinusTransaction =>
       if(amount >= transaction.amount) {
         amount -= transaction.amount
