@@ -1,6 +1,19 @@
-import actorsexample.ExampleActor
-import akka.actor.Props
+import akka.actor.{Actor, ActorSystem, Props}
 
-val props1 = Props[ExampleActor]
-val props2 = Props(new ExampleActorWithArgs("arg")) // Not recommended
-val props3 = Props(classOf[ExampleActorWithArgs], "arg")
+class ExampleActor(private val name: String) extends Actor {
+
+  override def receive = {
+    case message: String => println(s"You said: $message")
+    case _ => println("What?")
+  }
+
+}
+
+object ExampleApp extends App {
+
+  val system = ActorSystem("ExampleActorSystem")
+  val actor = system.actorOf(Props(classOf[ExampleActor], "Max"), "MaxTheExampleActor")
+
+  actor ! "Hello World"
+
+}
