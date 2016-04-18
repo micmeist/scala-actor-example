@@ -8,12 +8,12 @@ import akka.actor.{Props, ActorSystem}
 object PingPongApp extends App {
 
   val system = ActorSystem("PingPongActorSystem")
-  val PingAlfred = system.actorOf(Props(new Ping("Alfred")), "PingActor1")
-  val PingBernd = system.actorOf(Props(new Ping("Bernd")), "PingActor2")
+  val pingA = system.actorOf(Props(new Ping("A")), "PingActorA")
+  val pingB = system.actorOf(Props(new Ping("B")), "PingActorB")
   val pong = system.actorOf(Props[Pong], "PongActor")
 
   println("Start Games")
-  PingAlfred ! StartMessage(10, pong)
-  PingBernd ! StartMessage(20, pong)
+  pingA ! StartMessage(10, pong)
+  pingB ! StartMessage(20, pong)
   println("Games started")
 }

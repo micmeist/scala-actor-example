@@ -10,7 +10,7 @@ class Ping(private val playerName: String) extends Actor {
   private var count: Int = 0
 
   private def pingAndCount = {
-    println(playerName + " makes Ping " + count)
+    println(playerName + " ping " + count)
     count -= 1
   }
 
@@ -35,7 +35,7 @@ class Pong extends Actor {
 
   override def receive = {
     case pingMessage: PingMessage =>
-      println("Robo makes Pong to " + pingMessage.playerName)
+      println("Pong to " + pingMessage.playerName)
       sender ! PongMessage
   }
 }
