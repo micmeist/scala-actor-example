@@ -11,5 +11,6 @@ object HierarchyExampleApp extends App {
   val actor = system.actorOf(Props[ParentActor], "Parent")
 
   actor ! DangerousMessage
+  actor ! DangerousMessage
 
 }
